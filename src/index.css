@@ -32,13 +32,19 @@
   }
 }
 
-/* Safe area support for mobile notches & navigation bars */
+/* Safe area support for mobile notches, status bar & navigation bars */
 .safe-top {
-  padding-top: max(env(safe-area-inset-top), 0px);
+  padding-top: max(env(safe-area-inset-top, 0px), 24px);
+}
+
+@supports not (padding-top: env(safe-area-inset-top)) {
+  .safe-top {
+    padding-top: 24px;
+  }
 }
 
 .safe-bottom {
-  padding-bottom: max(env(safe-area-inset-bottom), 10px);
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 12px);
 }
 
 /* Custom smooth scrollbars */

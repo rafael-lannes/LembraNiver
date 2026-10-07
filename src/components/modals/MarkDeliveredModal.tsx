@@ -3,6 +3,7 @@ import { GiftItem, Person } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { X, CheckCircle, Calendar, DollarSign, MessageCircleHeart } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { DatePicker } from '../common/DatePicker';
 
 interface MarkDeliveredModalProps {
   gift: GiftItem | null;
@@ -161,34 +162,31 @@ export const MarkDeliveredModal: React.FC<MarkDeliveredModalProps> = ({
             </div>
           )}
 
-          {/* Data de Entrega & Preço Pago */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">
-                Data da Entrega *
-              </label>
-              <input
-                type="date"
-                value={deliveredDate}
-                onChange={(e) => setDeliveredDate(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-500 transition-all"
-                required
-              />
-            </div>
+          {/* Data de Entrega */}
+          <div>
+            <DatePicker
+              label="Data da Entrega"
+              value={deliveredDate}
+              onChange={setDeliveredDate}
+              required
+              minYear={2015}
+              maxYear={new Date().getFullYear() + 1}
+            />
+          </div>
 
-            <div>
-              <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">
-                Valor Final Pago (R$)
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                value={pricePaid}
-                onChange={(e) => setPricePaid(e.target.value)}
-                placeholder="Ex: 149,90"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-500 transition-all"
-              />
-            </div>
+          {/* Valor Final Pago */}
+          <div>
+            <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">
+              Valor Final Pago (R$)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              value={pricePaid}
+              onChange={(e) => setPricePaid(e.target.value)}
+              placeholder="Ex: 149,90"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-500 transition-all"
+            />
           </div>
 
           {/* Notas de Reação */}

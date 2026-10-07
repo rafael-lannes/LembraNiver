@@ -51,8 +51,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors safe-top w-full overflow-hidden">
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 h-15 sm:h-16 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors safe-top w-full overflow-hidden shadow-xs">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between gap-2">
         {/* Logo & Marca (Sem tag PRO, compacto e elegante) */}
         <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink">
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0">
