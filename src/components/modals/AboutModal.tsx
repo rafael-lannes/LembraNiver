@@ -52,7 +52,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-2">
             <div className="flex items-center gap-2 font-semibold text-slate-800 dark:text-slate-200">
               <Code2 className="w-4 h-4 text-indigo-500" />
-              <span>Desenvolvido com carinho</span>
+              <span>Criado por Rafael Lannes</span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-xs">
               Criado para que você nunca mais esqueça de parabenizar quem ama, com controle total de presentes, histórico de compras e integração direta com mensageiros.
@@ -65,7 +65,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
 
           {/* Link para GitHub */}
           <a
-            href="https://github.com"
+            href="https://rafael-lannes.github.io/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 bg-white dark:bg-slate-900 group transition-all"
@@ -78,9 +78,9 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
               </div>
               <div>
                 <p className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-500 transition-colors">
-                  Repositório no GitHub
+                  Página do GitHub
                 </p>
-                <p className="text-[11px] text-slate-400">Código-fonte, atualizações e releases</p>
+                <p className="text-[11px] text-slate-400">rafael-lannes.github.io</p>
               </div>
             </div>
             <span className="text-slate-400 group-hover:translate-x-0.5 transition-transform text-xs font-semibold">
