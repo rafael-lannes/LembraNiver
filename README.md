@@ -106,7 +106,24 @@ npm run build
 
 # Pré-visualizar build de produção
 npm run preview
+
+# Sincronizar alterações da aplicação com o projeto Android nativo
+npm run android:sync
+
+# Compilar novo pacote APK Android nativo (assembleDebug)
+npm run android:build
+
+# Abrir projeto nativo no Android Studio
+npm run android:open
 ```
+
+### 📱 Pacote APK Nativo Pronto para Instalação
+O pacote APK gerado está disponível na raiz do projeto:
+- **Arquivo direto:** `LembraNiver-debug.apk` (ou em `android/app/build/outputs/apk/debug/app-debug.apk`)
+- **Instalação via ADB no celular ou emulador:**
+  ```bash
+  adb install LembraNiver-debug.apk
+  ```
 
 ---
 
