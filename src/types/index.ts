@@ -84,6 +84,8 @@ export interface AppSettings {
   notify15DaysBefore: boolean;
   notify3DaysBefore: boolean;
   notifyOnDay: boolean;
+  userName?: string;
+  userBirthdate?: string; // YYYY-MM-DD
 }
 
 export interface BackupPayload {

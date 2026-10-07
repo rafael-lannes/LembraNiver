@@ -92,6 +92,8 @@ export const AppSettingsSchema = z.object({
   notify15DaysBefore: z.boolean(),
   notify3DaysBefore: z.boolean(),
   notifyOnDay: z.boolean(),
+  userName: z.string().optional(),
+  userBirthdate: z.string().optional(),
 });
 
 export const BackupPayloadSchema = z.object({

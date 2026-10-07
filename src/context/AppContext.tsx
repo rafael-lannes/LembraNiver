@@ -81,6 +81,7 @@ interface AppContextType {
   markNotificationAsRead: (id: string) => void;
   markAllNotificationsAsRead: () => void;
   requestWebNotificationPermission: () => Promise<boolean>;
+  testNotification: () => void;
 
   restoreData: (payload: BackupPayload, mode: 'replace' | 'merge') => void;
   resetToSampleData: () => void;
@@ -207,6 +208,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // 1. Aniversariantes de Hoje
     if (settings.notifyOnDay) {
+      // Meu Aniversário
+      if (settings.userBirthdate) {
+        const myCalc = getDaysUntilNextBirthday(settings.userBirthdate, today);
+        if (myCalc.isToday) {
+          notifs.push({
+            id: `notif-today-me-${today.toISOString().split('T')[0]}`,
+            title: `🎉 Parabéns! Hoje é o SEU aniversário!`,
+            description: `Você está completando ${myCalc.nextAge} anos hoje! Que seu dia seja fantástico!`,
+            type: 'birthday-today',
+            date: today.toISOString(),
+            isRead: readNotifIds.includes(`notif-today-me-${today.toISOString().split('T')[0]}`),
+          });
+        }
+      }
+
       persons.forEach((person) => {
         const calc = getDaysUntilNextBirthday(person.birthdate, today);
         if (calc.isToday) {
@@ -333,6 +349,37 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     } catch {
       return false;
+    }
+  }, [showToast]);
+
+  const testNotification = useCallback(async () => {
+    // 1. Dispara feedback visual imediato via Toast dentro do aplicativo
+    showToast(
+      '🔔 Teste de Notificação',
+      'As notificações do LembraNiver estão ativas e funcionando perfeitamente!',
+      'success'
+    );
+
+    // 2. Se a API de Notificações do sistema estiver disponível, tenta notificação nativa
+    if ('Notification' in window) {
+      if (Notification.permission === 'granted') {
+        try {
+          new Notification('LembraNiver: Teste com Sucesso! 🎁', {
+            body: 'Você receberá avisos automáticos de aniversários e lembretes aqui!',
+            icon: '/favicon.svg',
+          });
+        } catch {
+          // Ignora erro em ambientes com políticas restritas de WebView
+        }
+      } else if (Notification.permission !== 'denied') {
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+          new Notification('LembraNiver: Notificações Ativadas! 🎉', {
+            body: 'Tudo pronto! Seus lembretes de presentes serão entregues.',
+            icon: '/favicon.svg',
+          });
+        }
+      }
     }
   }, [showToast]);
 
@@ -620,6 +667,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         markNotificationAsRead,
         markAllNotificationsAsRead,
         requestWebNotificationPermission,
+        testNotification,
         restoreData,
         resetToSampleData,
         loadDemoData,

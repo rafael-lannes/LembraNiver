@@ -24,6 +24,7 @@ interface DashboardViewProps {
   onNavigateToPersons: () => void;
   onNavigateToGifts: () => void;
   onNavigateToCalendar: () => void;
+  onOpenMyBirthday?: () => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -33,8 +34,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToPersons,
   onNavigateToGifts,
   onNavigateToCalendar,
+  onOpenMyBirthday,
 }) => {
-  const { persons, gifts, history, loadDemoData } = useApp();
+  const { persons, gifts, history, loadDemoData, settings } = useApp();
+
+  // Meu Aniversário
+  const myBirthdayCalc = useMemo(() => {
+    if (!settings.userBirthdate) return null;
+    return getDaysUntilNextBirthday(settings.userBirthdate);
+  }, [settings.userBirthdate]);
 
   // 1. Aniversariantes de Hoje
   const todayBirthdays = useMemo(() => {
@@ -98,6 +106,77 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             >
               <Sparkles className="w-4 h-4 text-amber-500" />
               Modo Demonstração
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* BANNER / CARD DE MEU ANIVERSÁRIO */}
+      {myBirthdayCalc && (
+        <section
+          onClick={onOpenMyBirthday}
+          className={`p-4 sm:p-5 rounded-3xl border transition-all cursor-pointer relative overflow-hidden group ${
+            myBirthdayCalc.isToday
+              ? 'bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white shadow-lg shadow-amber-500/20'
+              : 'bg-white dark:bg-slate-900 border-amber-200/80 dark:border-amber-900/50 hover:border-amber-400'
+          }`}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div
+                className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ${
+                  myBirthdayCalc.isToday
+                    ? 'bg-white/20 text-white'
+                    : 'bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400'
+                }`}
+              >
+                <Cake className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      myBirthdayCalc.isToday
+                        ? 'bg-white/25 text-white'
+                        : 'bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300'
+                    }`}
+                  >
+                    Meu Aniversário
+                  </span>
+                  {myBirthdayCalc.isToday && (
+                    <span className="text-xs font-black animate-pulse">🎂 É HOJE!</span>
+                  )}
+                </div>
+                <h4
+                  className={`font-bold text-sm sm:text-base mt-0.5 truncate ${
+                    myBirthdayCalc.isToday ? 'text-white' : 'text-slate-900 dark:text-white'
+                  }`}
+                >
+                  {settings.userName ? `Parabéns, ${settings.userName}!` : 'Seu Dia Especial!'}
+                </h4>
+                <p
+                  className={`text-xs ${
+                    myBirthdayCalc.isToday
+                      ? 'text-white/90'
+                      : 'text-slate-500 dark:text-slate-400'
+                  }`}
+                >
+                  {myBirthdayCalc.isToday
+                    ? `Completando ${myBirthdayCalc.nextAge} anos! Que seu dia seja incrível! 🎉`
+                    : `Faltam ${myBirthdayCalc.daysUntil} dias para os seus ${myBirthdayCalc.nextAge} anos (${formatDateBR(myBirthdayCalc.nextDate, false)})`}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all ${
+                myBirthdayCalc.isToday
+                  ? 'bg-white text-rose-600 hover:bg-white/90'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 group-hover:bg-amber-500 group-hover:text-white'
+              }`}
+            >
+              Editar
             </button>
           </div>
         </section>

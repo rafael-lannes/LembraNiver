@@ -10,15 +10,24 @@ import {
   Check,
   Calendar,
   Sparkles,
+  Cake,
+  BellRing,
 } from 'lucide-react';
 import { formatDateBR } from '../../utils/dateUtils';
 
 interface HeaderProps {
   onOpenNewPerson: () => void;
   onOpenBackup: () => void;
+  onOpenAbout?: () => void;
+  onOpenMyBirthday?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onOpenNewPerson,
+  onOpenBackup,
+  onOpenAbout,
+  onOpenMyBirthday,
+}) => {
   const {
     settings,
     updateSettings,
@@ -27,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
     markNotificationAsRead,
     markAllNotificationsAsRead,
     requestWebNotificationPermission,
+    testNotification,
   } = useApp();
 
   const [showNotifications, setShowNotifications] = useState(false);
@@ -51,25 +61,42 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors safe-top w-full overflow-hidden shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors safe-top w-full shadow-xs">
       <div className="max-w-6xl mx-auto px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between gap-2">
-        {/* Logo & Marca (Sem tag PRO, compacto e elegante) */}
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0">
+        {/* Logo & Marca (Ao clicar, abre o modal "Sobre o App") */}
+        <button
+          onClick={onOpenAbout}
+          type="button"
+          className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink text-left group hover:opacity-90 active:scale-98 transition-all"
+          title="Sobre o LembraNiver (versão, desenvolvedor e GitHub)"
+          aria-label="Sobre o LembraNiver"
+        >
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0 group-hover:scale-105 transition-transform">
             <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <span className="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight truncate block">
+            <span className="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight truncate block group-hover:text-rose-500 transition-colors">
               Lembra<span className="text-rose-500">Niver</span>
             </span>
             <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden md:block truncate">
-              Presentes & Datas Especiais
+              Presentes & Datas Especiais • v0.1
             </p>
           </div>
-        </div>
+        </button>
 
-        {/* Ações do Topo (Garantido para caber 100% na tela de qualquer celular) */}
+        {/* Ações do Topo */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          {/* Botão "Meu Aniversário" */}
+          <button
+            onClick={onOpenMyBirthday}
+            className="p-1.5 sm:px-3 sm:py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-xl transition-all flex items-center gap-1.5 shrink-0 active:scale-95"
+            title="Cadastrar Meu Aniversário"
+            aria-label="Cadastrar Meu Aniversário"
+          >
+            <Cake className="w-4 h-4" />
+            <span className="hidden md:inline text-xs font-semibold">Meu Niver</span>
+          </button>
+
           {/* Botão Novo Cadastro */}
           <button
             onClick={onOpenNewPerson}
@@ -97,9 +124,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
               )}
             </button>
 
-            {/* Dropdown de Notificações */}
+            {/* Dropdown de Notificações com posicionamento z-[999] e Testar Notificação */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-72 sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-in fade-in zoom-in-95">
+              <div className="fixed sm:absolute right-2 sm:right-0 top-18 sm:top-full mt-1 w-[calc(100vw-16px)] sm:w-80 md:w-96 max-w-sm bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-[999] animate-in fade-in zoom-in-95">
                 <div className="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white">
@@ -111,15 +138,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
                       </span>
                     )}
                   </div>
-                  {unreadNotificationCount > 0 && (
-                    <button
-                      onClick={markAllNotificationsAsRead}
-                      className="text-xs text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 font-medium"
-                    >
-                      <Check className="w-3.5 h-3.5" />
-                      Marcar lidos
-                    </button>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {unreadNotificationCount > 0 && (
+                      <button
+                        onClick={markAllNotificationsAsRead}
+                        className="text-xs text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 font-medium"
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                        Marcar lidos
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
@@ -161,20 +190,33 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
                   )}
                 </div>
 
-                <div className="p-2.5 bg-slate-50 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                {/* Ações da Central: Testar Notificação e Configurações */}
+                <div className="p-2.5 bg-slate-50 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                   <button
-                    onClick={requestWebNotificationPermission}
-                    className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors font-medium flex items-center gap-1"
+                    onClick={() => {
+                      testNotification();
+                    }}
+                    className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/50 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5"
+                    title="Enviar notificação de teste agora"
                   >
-                    <Bell className="w-3 h-3" />
-                    Notificações
+                    <BellRing className="w-3.5 h-3.5" />
+                    Testar Notificação
                   </button>
-                  <button
-                    onClick={onOpenBackup}
-                    className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors"
-                  >
-                    Configurações
-                  </button>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={requestWebNotificationPermission}
+                      className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors font-medium"
+                    >
+                      Permissão
+                    </button>
+                    <button
+                      onClick={onOpenBackup}
+                      className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors"
+                    >
+                      Ajustes
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

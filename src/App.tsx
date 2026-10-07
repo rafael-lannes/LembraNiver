@@ -18,6 +18,8 @@ import { GiftFormModal } from './components/modals/GiftFormModal';
 import { MarkDeliveredModal } from './components/modals/MarkDeliveredModal';
 import { BackupModal } from './components/modals/BackupModal';
 import { ReminderFormModal } from './components/modals/ReminderFormModal';
+import { AboutModal } from './components/modals/AboutModal';
+import { MyBirthdayModal } from './components/modals/MyBirthdayModal';
 
 import { Person, GiftItem } from './types';
 
@@ -38,6 +40,8 @@ const MainApp: React.FC = () => {
   const [deliveredGift, setDeliveredGift] = useState<GiftItem | null>(null);
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
+  const [isMyBirthdayModalOpen, setIsMyBirthdayModalOpen] = useState(false);
 
   // Handlers para Pessoas
   const handleOpenNewPerson = () => {
@@ -83,6 +87,8 @@ const MainApp: React.FC = () => {
       <Header
         onOpenNewPerson={handleOpenNewPerson}
         onOpenBackup={() => setIsBackupModalOpen(true)}
+        onOpenAbout={() => setIsAboutModalOpen(true)}
+        onOpenMyBirthday={() => setIsMyBirthdayModalOpen(true)}
       />
 
       {/* Navegação por abas */}
@@ -102,6 +108,7 @@ const MainApp: React.FC = () => {
             onNavigateToPersons={() => setCurrentTab('persons')}
             onNavigateToGifts={() => setCurrentTab('gifts')}
             onNavigateToCalendar={() => setCurrentTab('calendar')}
+            onOpenMyBirthday={() => setIsMyBirthdayModalOpen(true)}
           />
         )}
 
@@ -169,6 +176,16 @@ const MainApp: React.FC = () => {
       <ReminderFormModal
         isOpen={isReminderModalOpen}
         onClose={() => setIsReminderModalOpen(false)}
+      />
+
+      <AboutModal
+        isOpen={isAboutModalOpen}
+        onClose={() => setIsAboutModalOpen(false)}
+      />
+
+      <MyBirthdayModal
+        isOpen={isMyBirthdayModalOpen}
+        onClose={() => setIsMyBirthdayModalOpen(false)}
       />
 
       {/* Container de Toasts para Notificações Flutuantes */}

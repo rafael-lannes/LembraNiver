@@ -6,7 +6,7 @@ import {
   generateWhatsAppLink,
 } from '../../utils/messageGenerator';
 import { getDaysUntilNextBirthday, formatPhoneBR } from '../../utils/dateUtils';
-import { X, Send, Copy, Sparkles, MessageCircle, Heart, Smile, Zap } from 'lucide-react';
+import { X, Send, Copy, Sparkles, MessageCircle, Heart, Smile, Zap, Share2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface SendMessageModalProps {
@@ -75,11 +75,32 @@ export const SendMessageModal: React.FC<SendMessageModalProps> = ({
     }
   };
 
+  const handleShareText = async () => {
+    if (!customMessage.trim()) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Parabéns ${person.nickname || person.name}!`,
+          text: customMessage,
+        });
+        showToast('Compartilhado com sucesso!', 'Mensagem enviada.', 'success');
+      } catch (err: unknown) {
+        // Ignora abort do usuário ao cancelar o share dialog
+        if ((err as Error)?.name !== 'AbortError') {
+          handleCopyToClipboard();
+        }
+      }
+    } else {
+      // Fallback para cópia automática caso o navegador não ofereça menu nativo de compartilhamento
+      handleCopyToClipboard();
+    }
+  };
+
   const handleSendWhatsApp = () => {
     if (!person.phone) {
       showToast(
         'Telefone não cadastrado',
-        'Adicione o telefone/WhatsApp no cadastro desta pessoa.',
+        'Adicione o telefone/WhatsApp no cadastro desta pessoa para disparo direto.',
         'warning'
       );
       return;
@@ -87,7 +108,7 @@ export const SendMessageModal: React.FC<SendMessageModalProps> = ({
     const link = generateWhatsAppLink(person.phone, customMessage);
     if (link) {
       window.open(link, '_blank');
-      showToast('Abrindo WhatsApp...', 'Disparando mensagem com deep link.', 'info');
+      showToast('Abrindo WhatsApp...', 'Disparando mensagem.', 'info');
     }
   };
 
@@ -228,24 +249,36 @@ export const SendMessageModal: React.FC<SendMessageModalProps> = ({
         </div>
 
         {/* Modal Footer com Botões de Ação */}
-        <div className="p-4 sm:p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5">
+        <div className="p-4 sm:p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2">
           <button
             type="button"
             onClick={handleCopyToClipboard}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium transition-colors"
+            className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-medium transition-colors"
           >
             <Copy className="w-4 h-4" />
-            Copiar Mensagem
+            Copiar
           </button>
+
+          {person.phone && (
+            <button
+              type="button"
+              onClick={handleSendWhatsApp}
+              className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-xs sm:text-sm font-semibold active:scale-95 transition-all"
+              title="Disparo direto no WhatsApp"
+            >
+              <Send className="w-4 h-4" />
+              WhatsApp
+            </button>
+          )}
 
           <button
             type="button"
-            onClick={handleSendWhatsApp}
-            disabled={!person.phone}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-md shadow-emerald-600/20 active:scale-95 transition-all"
+            onClick={handleShareText}
+            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-rose-500/25 active:scale-95 transition-all"
+            title="Abrir menu de compartilhamento padrão do aparelho (Telegram, Instagram, E-mail, etc.)"
           >
-            <Send className="w-4 h-4" />
-            Enviar via WhatsApp
+            <Share2 className="w-4 h-4" />
+            Compartilhar Texto
           </button>
         </div>
       </div>
