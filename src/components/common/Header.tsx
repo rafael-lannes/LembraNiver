@@ -51,51 +51,47 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
-        {/* Logo & Marca */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
-            <Gift className="w-5 h-5" />
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors safe-top w-full overflow-hidden">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 h-15 sm:h-16 flex items-center justify-between gap-2">
+        {/* Logo & Marca (Sem tag PRO, compacto e elegante) */}
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0">
+            <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-lg text-slate-900 dark:text-white tracking-tight">
-                Lembra<span className="text-rose-500">Niver</span>
-              </span>
-              <span className="text-[10px] uppercase font-semibold bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300 px-1.5 py-0.5 rounded">
-                Pro
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
+          <div className="min-w-0">
+            <span className="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight truncate block">
+              Lembra<span className="text-rose-500">Niver</span>
+            </span>
+            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden md:block truncate">
               Presentes & Datas Especiais
             </p>
           </div>
         </div>
 
-        {/* Ações do Topo */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Botão Novo Cadastro (Destaque) */}
+        {/* Ações do Topo (Garantido para caber 100% na tela de qualquer celular) */}
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          {/* Botão Novo Cadastro */}
           <button
             onClick={onOpenNewPerson}
-            className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm transition-all"
+            className="p-1.5 sm:px-3 sm:py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl shadow-sm transition-all flex items-center gap-1.5 shrink-0"
             title="Cadastrar nova pessoa"
+            aria-label="Cadastrar nova pessoa"
           >
             <Plus className="w-4 h-4" />
-            <span className="hidden sm:inline">Nova Pessoa</span>
-            <span className="sm:hidden">Novo</span>
+            <span className="hidden sm:inline text-xs font-semibold">Nova Pessoa</span>
           </button>
 
           {/* Botão Notificações */}
-          <div className="relative" ref={notifRef}>
+          <div className="relative shrink-0" ref={notifRef}>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+              className="relative p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors shrink-0"
               aria-label="Notificações"
+              title="Notificações"
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
               {unreadNotificationCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
+                <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-rose-500 text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
                   {unreadNotificationCount > 9 ? '9+' : unreadNotificationCount}
                 </span>
               )}
@@ -103,15 +99,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
 
             {/* Dropdown de Notificações */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-in fade-in zoom-in-95">
-                <div className="p-3.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
+              <div className="absolute right-0 mt-2 w-72 sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-in fade-in zoom-in-95">
+                <div className="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sm text-slate-900 dark:text-white">
+                    <span className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white">
                       Central de Lembretes
                     </span>
                     {unreadNotificationCount > 0 && (
-                      <span className="text-xs bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-300 px-2 py-0.5 rounded-full font-medium">
-                        {unreadNotificationCount} novos
+                      <span className="text-[10px] sm:text-xs bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-300 px-1.5 py-0.5 rounded-full font-medium">
+                        {unreadNotificationCount}
                       </span>
                     )}
                   </div>
@@ -126,10 +122,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
                   )}
                 </div>
 
-                <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
+                <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
                   {notifications.length === 0 ? (
                     <div className="p-6 text-center text-slate-500 text-xs">
-                      <Sparkles className="w-6 h-6 mx-auto mb-2 text-slate-400" />
+                      <Sparkles className="w-5 h-5 mx-auto mb-1.5 text-slate-400" />
                       Nenhum alerta pendente no momento!
                     </div>
                   ) : (
@@ -137,11 +133,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
                       <div
                         key={n.id}
                         onClick={() => markNotificationAsRead(n.id)}
-                        className={`p-3.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer flex gap-3 ${
+                        className={`p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer flex gap-2.5 ${
                           !n.isRead ? 'bg-rose-50/40 dark:bg-rose-950/20' : ''
                         }`}
                       >
-                        <div className="mt-0.5 text-base shrink-0">
+                        <div className="text-sm shrink-0 mt-0.5">
                           {n.type === 'birthday-today' && '🎂'}
                           {n.type === 'birthday-3days' && '🎁'}
                           {n.type === 'birthday-15days' && '📅'}
@@ -165,18 +161,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
                   )}
                 </div>
 
-                {/* Footer do Dropdown com ativação de notificações nativas */}
                 <div className="p-2.5 bg-slate-50 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <button
                     onClick={requestWebNotificationPermission}
-                    className="text-xs text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors font-medium flex items-center gap-1.5"
+                    className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors font-medium flex items-center gap-1"
                   >
-                    <Bell className="w-3.5 h-3.5" />
-                    Ativar no navegador
+                    <Bell className="w-3 h-3" />
+                    Notificações
                   </button>
                   <button
                     onClick={onOpenBackup}
-                    className="text-xs text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors"
+                    className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors"
                   >
                     Configurações
                   </button>
@@ -188,21 +183,25 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPerson, onOpenBackup })
           {/* Botão Backup */}
           <button
             onClick={onOpenBackup}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+            className="p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors shrink-0"
             title="Backup e Restauração"
             aria-label="Backup"
           >
-            <Database className="w-5 h-5" />
+            <Database className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          {/* Toggle Dark Mode */}
+          {/* Toggle Dark Mode (100% visível em qualquer largura) */}
           <button
             onClick={toggleDarkMode}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
-            aria-label="Alternar tema escuro/claro"
+            className="p-1.5 sm:p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors shrink-0"
+            aria-label="Alternar tema claro/escuro"
             title={settings.darkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
           >
-            {settings.darkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5" />}
+            {settings.darkMode ? (
+              <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
+            )}
           </button>
         </div>
       </div>

@@ -34,7 +34,8 @@ export const BackupModal: React.FC<BackupModalProps> = ({ isOpen, onClose }) => 
     reminders,
     settings,
     restoreData,
-    resetToSampleData,
+    loadDemoData,
+    clearAllData,
     showToast,
   } = useApp();
 
@@ -106,8 +107,15 @@ export const BackupModal: React.FC<BackupModalProps> = ({ isOpen, onClose }) => 
   };
 
   const handleResetSample = () => {
-    if (confirm('Deseja recarregar os dados de demonstração originais do LembraNiver?')) {
-      resetToSampleData();
+    if (confirm('Deseja carregar os dados de demonstração do LembraNiver para testes?')) {
+      loadDemoData();
+      onClose();
+    }
+  };
+
+  const handleClearAll = () => {
+    if (confirm('Atenção: Isso irá remover todas as pessoas, presentes e históricos cadastrados. Deseja continuar?')) {
+      clearAllData();
       onClose();
     }
   };
@@ -314,24 +322,44 @@ export const BackupModal: React.FC<BackupModalProps> = ({ isOpen, onClose }) => 
             )}
           </div>
 
-          {/* Seção 3: Dados de Demonstração */}
-          <div className="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-            <div>
-              <span className="font-semibold text-slate-700 dark:text-slate-300 block">
-                Resetar para Demonstração
-              </span>
-              <span className="text-[11px] text-slate-400">
-                Recarrega contatos e presentes fictícios para testes.
-              </span>
+          {/* Seção 3: Dados de Demonstração e Gerenciamento */}
+          <div className="space-y-2">
+            <div className="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+              <div>
+                <span className="font-semibold text-slate-700 dark:text-slate-300 block">
+                  Modo de Demonstração
+                </span>
+                <span className="text-[11px] text-slate-400">
+                  Carrega contatos, presentes e datas comemorativas de exemplo.
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleResetSample}
+                className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors flex items-center gap-1 shrink-0"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Carregar
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleResetSample}
-              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors flex items-center gap-1"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              Resetar
-            </button>
+
+            <div className="p-3.5 rounded-2xl border border-rose-200 dark:border-rose-950/60 bg-rose-50/30 dark:bg-rose-950/20 flex items-center justify-between text-xs">
+              <div>
+                <span className="font-semibold text-rose-700 dark:text-rose-300 block">
+                  Limpar Todos os Dados
+                </span>
+                <span className="text-[11px] text-slate-400">
+                  Zera contatos e presentes para começar do zero.
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleClearAll}
+                className="px-3 py-1.5 rounded-lg border border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/40 font-medium transition-colors shrink-0"
+              >
+                Limpar
+              </button>
+            </div>
           </div>
         </div>
 

@@ -78,7 +78,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors w-full overflow-x-hidden">
       {/* Header global */}
       <Header
         onOpenNewPerson={handleOpenNewPerson}
@@ -93,7 +93,7 @@ const MainApp: React.FC = () => {
       />
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 pt-5 pb-16">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-4 pt-4 sm:pt-5 pb-24 md:pb-16 overflow-x-hidden">
         {currentTab === 'dashboard' && (
           <DashboardView
             onOpenSendMessage={handleOpenSendMessage}

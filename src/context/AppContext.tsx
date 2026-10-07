@@ -84,6 +84,8 @@ interface AppContextType {
 
   restoreData: (payload: BackupPayload, mode: 'replace' | 'merge') => void;
   resetToSampleData: () => void;
+  loadDemoData: () => void;
+  clearAllData: () => void;
 }
 
 const STORAGE_KEYS = {
@@ -99,20 +101,20 @@ const STORAGE_KEYS = {
 const AppContext = createContext<AppContextType | null>(null);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Inicialização com Fallback para Mock Data
+  // Inicialização: primeiro uso inicia vazio; modo demo pode ser acionado a qualquer momento
   const [persons, setPersons] = useState<Person[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.PERSONS);
-    return saved ? JSON.parse(saved) : INITIAL_PERSONS;
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [gifts, setGifts] = useState<GiftItem[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.GIFTS);
-    return saved ? JSON.parse(saved) : INITIAL_GIFTS;
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [history, setHistory] = useState<GiftHistoryItem[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.HISTORY);
-    return saved ? JSON.parse(saved) : INITIAL_GIFT_HISTORY;
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [templates, setTemplates] = useState<BirthdayTemplate[]>(() => {
@@ -122,7 +124,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [reminders, setReminders] = useState<CustomReminder[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.REMINDERS);
-    return saved ? JSON.parse(saved) : INITIAL_REMINDERS;
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [settings, setSettings] = useState<AppSettings>(() => {
@@ -562,8 +564,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     [persons, gifts, history, templates, reminders, settings, showToast]
   );
 
-  // Restaurar dados de demonstração
-  const resetToSampleData = useCallback(() => {
+  // Restaurar / Carregar dados de demonstração
+  const loadDemoData = useCallback(() => {
     setPersons(INITIAL_PERSONS);
     setGifts(INITIAL_GIFTS);
     setHistory(INITIAL_GIFT_HISTORY);
@@ -571,7 +573,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setReminders(INITIAL_REMINDERS);
     setSettings(INITIAL_SETTINGS);
     setReadNotifIds([]);
-    showToast('Dados de demonstração restaurados!', 'Dados iniciais recarregados.', 'info');
+    showToast('Modo de demonstração carregado!', 'Contatos e presentes de teste adicionados.', 'success');
+  }, [showToast]);
+
+  const resetToSampleData = loadDemoData;
+
+  const clearAllData = useCallback(() => {
+    setPersons([]);
+    setGifts([]);
+    setHistory([]);
+    setReminders([]);
+    setReadNotifIds([]);
+    showToast('Dados limpos', 'Todos os contatos e presentes foram removidos.', 'info');
   }, [showToast]);
 
   return (
@@ -609,6 +622,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         requestWebNotificationPermission,
         restoreData,
         resetToSampleData,
+        loadDemoData,
+        clearAllData,
       }}
     >
       {children}

@@ -31,7 +31,7 @@ export const PersonsView: React.FC<PersonsViewProps> = ({
   onOpenSendMessage,
   onOpenGiftsForPerson,
 }) => {
-  const { persons, gifts, deletePerson } = useApp();
+  const { persons, gifts, deletePerson, loadDemoData } = useApp();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRelationship, setSelectedRelationship] = useState<string>('todos');
@@ -146,7 +146,37 @@ export const PersonsView: React.FC<PersonsViewProps> = ({
       </div>
 
       {/* Grid de Pessoas */}
-      {filteredPersons.length === 0 ? (
+      {persons.length === 0 ? (
+        <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400 flex items-center justify-center mx-auto">
+            <HeartHandshake className="w-6 h-6" />
+          </div>
+          <div className="max-w-sm mx-auto space-y-1">
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">
+              Nenhuma pessoa cadastrada
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Cadastre amigos e familiares para organizar datas e presentes, ou carregue dados de demonstração para testar.
+            </p>
+          </div>
+          <div className="pt-1 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-xs mx-auto">
+            <button
+              onClick={onOpenNewPerson}
+              className="w-full sm:w-auto px-4 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5"
+            >
+              <Plus className="w-4 h-4" />
+              Cadastrar Pessoa
+            </button>
+            <button
+              onClick={loadDemoData}
+              className="w-full sm:w-auto px-3.5 py-2 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              Carregar Demonstração
+            </button>
+          </div>
+        </div>
+      ) : filteredPersons.length === 0 ? (
         <div className="p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center text-slate-500 text-xs">
           Nenhuma pessoa encontrada com os filtros selecionados.
         </div>

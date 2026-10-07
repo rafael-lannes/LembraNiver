@@ -34,7 +34,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToGifts,
   onNavigateToCalendar,
 }) => {
-  const { persons, gifts, history } = useApp();
+  const { persons, gifts, history, loadDemoData } = useApp();
 
   // 1. Aniversariantes de Hoje
   const todayBirthdays = useMemo(() => {
@@ -70,6 +70,39 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="space-y-6 pb-20">
+      {/* 0. ONBOARDING / ESTADO INICIAL NO PRIMEIRO USO */}
+      {persons.length === 0 && (
+        <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-rose-50/80 via-white to-pink-50/80 dark:from-slate-900 dark:via-slate-900 dark:to-rose-950/20 border border-rose-200 dark:border-rose-900/60 shadow-sm text-center space-y-4 animate-in fade-in">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-gradient-to-tr from-rose-500 to-rose-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-rose-500/25">
+            <Gift className="w-7 h-7 sm:w-8 sm:h-8" />
+          </div>
+          <div className="max-w-md mx-auto space-y-1.5">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              Bem-vindo ao LembraNiver!
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              Você ainda não possui pessoas cadastradas. Comece adicionando amigos e familiares para acompanhar aniversários e gerenciar presentes, ou ative o modo demonstração para testar todas as funcionalidades.
+            </p>
+          </div>
+          <div className="pt-1 flex flex-col sm:flex-row items-center justify-center gap-2.5 max-w-sm mx-auto">
+            <button
+              onClick={onOpenNewPerson}
+              className="w-full sm:w-auto px-5 py-2.5 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-rose-600/20 transition-all flex items-center justify-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Cadastrar Pessoa
+            </button>
+            <button
+              onClick={loadDemoData}
+              className="w-full sm:w-auto px-4 py-2.5 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2"
+            >
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              Modo Demonstração
+            </button>
+          </div>
+        </section>
+      )}
+
       {/* 1. BANNER DE ANIVERSARIANTES DE HOJE */}
       {todayBirthdays.length > 0 && (
         <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white p-5 sm:p-7 shadow-xl shadow-rose-500/15 animate-in fade-in slide-in-from-top-4">
