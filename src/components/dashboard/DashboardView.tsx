@@ -81,13 +81,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* 0. ONBOARDING / ESTADO INICIAL NO PRIMEIRO USO */}
       {persons.length === 0 && (
         <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-rose-50/80 via-white to-pink-50/80 dark:from-slate-900 dark:via-slate-900 dark:to-rose-950/20 border border-rose-200 dark:border-rose-900/60 shadow-sm text-center space-y-4 animate-in fade-in">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-gradient-to-tr from-rose-500 to-rose-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-rose-500/25">
-            <Gift className="w-7 h-7 sm:w-8 sm:h-8" />
-          </div>
+          <img
+            src="/app-icon.png"
+            alt="LembraNiver"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl shadow-xl shadow-indigo-950/20 mx-auto object-cover ring-2 ring-rose-200 dark:ring-rose-900/40"
+          />
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
               Bem-vindo ao LembraNiver!
             </h3>
+            <p className="text-xs font-semibold text-rose-600 dark:text-rose-400">
+              Mais presença na vida de quem você ama.
+            </p>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Você ainda não possui pessoas cadastradas. Comece adicionando amigos e familiares para acompanhar aniversários e gerenciar presentes, ou ative o modo demonstração para testar todas as funcionalidades.
             </p>

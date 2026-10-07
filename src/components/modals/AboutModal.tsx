@@ -15,15 +15,17 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-gradient-to-r from-rose-500/10 via-pink-500/10 to-transparent">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
-              <Gift className="w-5 h-5" />
-            </div>
+            <img
+              src="/app-icon.png"
+              alt="Ícone LembraNiver"
+              className="w-10 h-10 rounded-2xl shadow-md shadow-indigo-950/20 object-cover ring-1 ring-slate-200 dark:ring-slate-800"
+            />
             <div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">
                 Sobre o Lembra<span className="text-rose-500">Niver</span>
               </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                Gerenciador de Presentes, Datas Especiais e Aniversários
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium italic">
+                "Mais presença na vida de quem você ama."
               </p>
             </div>
           </div>

@@ -67,19 +67,21 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onOpenAbout}
           type="button"
-          className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink text-left group hover:opacity-90 active:scale-98 transition-all"
+          className="flex items-center gap-2.5 sm:gap-3 min-w-0 shrink text-left group hover:opacity-95 active:scale-98 transition-all"
           title="Sobre o LembraNiver (versão, desenvolvedor e GitHub)"
           aria-label="Sobre o LembraNiver"
         >
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0 group-hover:scale-105 transition-transform">
-            <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
-          </div>
+          <img
+            src="/app-icon.png"
+            alt="Ícone LembraNiver"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl shadow-md shadow-indigo-950/20 object-cover shrink-0 group-hover:scale-105 transition-transform ring-1 ring-slate-200 dark:ring-slate-800"
+          />
           <div className="min-w-0">
             <span className="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight truncate block group-hover:text-rose-500 transition-colors">
               Lembra<span className="text-rose-500">Niver</span>
             </span>
-            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden md:block truncate">
-              Presentes & Datas Especiais • v0.1
+            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block truncate">
+              Mais presença na vida de quem você ama.
             </p>
           </div>
         </button>
