@@ -1,157 +1,135 @@
-# 🎁 LembraNiver - Gerenciador de Presentes, Datas Especiais e Aniversários
+<div align="center">
 
-O **LembraNiver** é uma aplicação completa, moderna e offline-first desenvolvida para garantir que você nunca mais esqueça de parabenizar ou presentear pessoas queridas em datas especiais, aniversários e comemorações brasileiras.
+  <img src="public/app-icon.png" alt="LembraNiver Logo" width="140" style="border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
+
+  # LembraNiver
+  ### *"Mais presença na vida de quem você ama."*
+
+  [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Capacitor Android](https://img.shields.io/badge/Capacitor-Android-1192E8?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com/)
+  [![License](https://img.shields.io/badge/Licen%C3%A7a-MIT-rose?style=for-the-badge)](LICENSE)
+
+  <p align="center">
+    O <b>LembraNiver</b> é um aplicativo moderno, completo e <i>offline-first</i> para você nunca mais esquecer de parabenizar quem ama, controlar ideias de presentes, evitar compras repetidas e celebrar datas comemorativas especiais.
+  </p>
+
+</div>
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🌟 Principais Funcionalidades
 
-- **Frontend & Framework:** React 19 + TypeScript + Vite 8
-- **Estilização & Design System:** Tailwind CSS (com suporte nativo a Dark Mode e paleta de alto contraste)
-- **Ícones:** Lucide React
-- **Validação de Schema & Integridade:** Zod
-- **Celebração & Feedback Visual:** Canvas Confetti + Sistema de Toasts reativo
-- **Armazenamento & Offline-first:** LocalStorage estruturado com fallback inteligente
-- **Compartilhamento & Exportação:** Web Share API com fallback para download de arquivo JSON nativo
-- **Notificações:** Web Notifications API com central de notificações in-app
+### 1. 👥 Gestão Completa de Pessoas & Relações
+- **Cadastro Detalhado:** Nome, apelido, número de WhatsApp/telefone, data de nascimento e grau de parentesco (`Mãe`, `Pai`, `Filho(a)`, `Avô/Avó`, `Irmão(ã)`, `Cônjuge`, `Amigo(a)`, etc.).
+- **Flag "Quero Presentear":** Ativa o cálculo de lembretes automáticos e associação em datas especiais.
+- **Notas de Preferências:** Anote tamanhos de roupas, calçados, hobbies, marcas favoritas e restrições.
 
----
+### 2. 🎂 "Meu Aniversário"
+- Registro da data de aniversário do próprio usuário com contagem regressiva dedicada, idade a ser completada e notificações especiais de celebração no seu dia!
 
-## 📋 Regras de Negócio Implementadas
+### 3. 💌 Gerador Dinâmico de Mensagens de Parabéns
+- **Banco de Mensagens Categorizado:** Tons *Clássicas / Carinhosas*, *Bem-humoradas / Engraçadas* e *Curtas / Diretas*.
+- **Placeholders Inteligentes:** Substituição automática de `{nome}`, `{apelido}` e `{idade}`.
+- **Compartilhamento Nativo:**
+  - Botão **Compartilhar Texto** compatível com o menu padrão do sistema (WhatsApp, Telegram, Instagram, E-mail, SMS, etc.).
+  - Atalho rápido direto para o **WhatsApp** e botão **Copiar Mensagem**.
 
-### 1. Gestão de Pessoas & Relações
-- **Cadastro completo:** Nome, Apelido, Telefone/WhatsApp (com DDD), Foto/Avatar com iniciais coloridas automáticas, Data de Nascimento e Vínculo/Parentesco (`Mãe`, `Pai`, `Filho(a)`, `Avô/Avó`, `Irmão(ã)`, `Cônjuge`, `Namorado(a)`, `Amigo(a)`, `Colega de Trabalho`, etc.).
-- **Flag "Quero Presentear":** Toggle para ativar/desativar lembretes de compra e vínculos automáticos com datas comemorativas.
-- **Preferências & Notas:** Registro detalhado de tamanhos de calçado/roupa, preferências de presentes, hobbies e restrições.
+### 4. 🎁 Wishlist & Prevenção Inteligente de Repetição
+- **Wishlist & Ideias de Presentes:** Links diretos para lojas, preços estimados, prioridades (`Baixa`, `Média`, `Alta`) e status (`Ideia`, `Comprado`, `Entregue`).
+- **Prevenção de Repetição:** O sistema alerta em tempo real caso você tente presentear alguém com algo similar ao que já entregou em anos ou datas anteriores (ex: *"Você já deu este item no Natal de 2024"*).
+- **Histórico de Entregas:** Registro de data, valor pago, ocasião e notas sobre a reação de quem recebeu.
 
-### 2. Gerador Dinâmico de Mensagens de Aniversário
-- **Banco de Templates:** Modelos categorizados em:
-  - *Clássicas / Carinhosas*
-  - *Bem-humoradas / Engraçadas*
-  - *Curtas / Diretas*
-- **Placeholders dinâmicos:** `{nome}`, `{apelido}`, `{idade}` substituídos em tempo real.
-- **Ação Direta:**
-  - Botão **"Enviar via WhatsApp"** disparando Deep Link oficial (`https://wa.me/{telefone}?text={encoded}`).
-  - Botão **"Copiar Mensagem"** com feedback visual via Toast.
-
-### 3. Wishlist, Compras & Histórico de Presentes Entregues
-- **Lista Ativa / Wishlist:**
-  - Título, descrição, prioridade (`baixa`, `media`, `alta`) e status (`ideia`, `comprado`).
-  - Link de loja/produto com validação e atalho direto "Abrir no navegador".
-  - Preço estimado e preço real.
-- **Prevenção de Repetição Inteligente:**
-  - Analisador de similaridade que compara em tempo real o novo presente com presentes dados no passado para aquela pessoa.
-  - Alerta em destaque caso um item similar já tenha sido entregue em ocasiões anteriores (ex: *"Você já deu este item no Aniversário de 2025"*).
-- **Ação "Marcar como Entregue" & Histórico:**
-  - Arquiva o item no histórico registrando: Data de entrega, Ocasião/Evento (`Aniversário`, `Natal`, `Dia das Mães`, etc.), valor pago e notas da reação.
-
-### 4. Painel Principal (Dashboard & Feed)
-- **Banner de Aniversariantes de Hoje:** Destaque vibrante quando alguém faz aniversário na data atual, com 1-clique para envio de parabéns e consulta de presentes.
-- **Próximas Datas Comemorativas:** Card em destaque com a comemoração mais próxima, contagem regressiva de dias e lista de pessoas associadas.
-- **Feed de Próximos Aniversários:** Lista cronológica dos aniversariantes nos próximos 60–90 dias, com badge de contagem regressiva e idade a ser completada.
-
-### 5. Calendário Interativo do Mês
-- Grade mensal com navegação entre meses e botão de retorno para "Hoje".
-- Badges coloridos por tipo de evento:
-  - 🔵 **Azul:** Aniversários
-  - 🟢 **Verde:** Datas Comemorativas Brasileiras
-  - 🟠 **Laranja:** Lembretes Customizados
-- Painel lateral com detalhes completos do dia selecionado e atalho rápido de envio de parabéns.
-
-### 6. Motor de Datas Comemorativas Brasileiras
-- Cálculo dinâmico para qualquer ano de datas fixas e móveis:
+### 5. 📅 Motor de Datas Comemorativas Brasileiras
+- Cálculo automático para datas fixas e móveis brasileiras:
   - Dia das Mães (2º domingo de maio)
   - Dia dos Pais (2º domingo de agosto)
   - Dia dos Namorados (12 de junho)
   - Dia dos Avós (26 de julho)
-  - Dia do Amigo (20 de julho)
-  - Dia dos Irmãos (5 de setembro)
   - Dia das Crianças (12 de outubro)
-  - Páscoa (cálculo de Meeus/Jones/Butcher)
-  - Natal (25 de dezembro)
-- Mapeamento automático com pessoas cadastradas conforme parentesco e flag de presente.
+  - Páscoa e Natal
+- Associação automática de contatos conforme parentesco e preferência de presente.
 
-### 7. Sistema Inteligente de Lembretes & Notificações
-- Central de notificações com alertas de:
-  - Aniversariantes de hoje.
-  - Alerta com 15 dias de antecedência para pesquisa de presente.
-  - Alerta com 3 dias de antecedência para compra urgente.
-  - Resumo no 1º dia do mês com aniversariantes marcados com "Quero presentear".
-  - Lembretes personalizados agendados pelo usuário.
+### 6. 📆 Calendário Interativo do Mês
+- Visão mensal com marcadores coloridos por evento (azul para aniversários, verde para comemorações e laranja para lembretes).
+- Toque em qualquer dia para ver os eventos e acessar atalhos rápidos de envio.
 
-### 8. 💾 Backup & Restauração com Schema Zod
-- **Exportação:** Arquivo JSON padronizado e versionado (`lembraniver_backup_YYYY-MM-DD.json`) com consolidação completa de pessoas, listas, históricos, templates e configurações.
-- **Compartilhamento:** Suporte a `Web Share API` e download direto.
-- **Importação:** Leitura de arquivo com validação rigorosa via Zod.
-- **Modos de Restauração:**
-  1. *Mesclagem (Merge):* Adiciona novos dados sem sobrepor IDs já existentes.
-  2. *Substituição Total:* Limpa a base local e restaura o estado idêntico do arquivo.
+### 7. 🔔 Central de Lembretes & Notificações
+- Alertas matinais no dia do evento.
+- Alertas com 15 dias de antecedência para pesquisar com calma.
+- Alertas com 3 dias de antecedência para compra urgente.
+- Criação de lembretes customizados com data e hora.
+- Botão **Testar Notificação** para validação imediata no dispositivo.
+
+### 8. 💾 Backup & Restauração Completa (Offline-First)
+- Exportação em arquivo `.json` versionado e validado com schema rigoroso via **Zod**.
+- Restauração com modos **Substituir Base** ou **Mesclar Dados (Merge)**.
+- Total privacidade: seus contatos e anotações ficam salvos 100% no seu dispositivo.
 
 ---
 
-## 🛠️ Comandos de Desenvolvimento
+## 🛠️ Tecnologias Utilizadas
+
+- **Frontend:** React 19, TypeScript, Vite 8
+- **Estilização:** Tailwind CSS (Dark Mode & Light Mode responsivo)
+- **Ícones:** Lucide React
+- **Validação:** Zod
+- **Mobile Nativo:** Capacitor 8 (Android SDK 34 / Java 17)
+- **Animações:** Canvas Confetti
+
+---
+
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
+- Node.js 18+ instalado
+- (Opcional para Android) Android SDK e JDK 17
+
+### Passo a Passo
 
 ```bash
-# Instalar dependências
+# 1. Clonar o repositório
+git clone https://github.com/rafael-lannes/LembraNiver.git
+cd LembraNiver
+
+# 2. Instalar dependências
 npm install
 
-# Iniciar servidor de desenvolvimento local
+# 3. Rodar em ambiente de desenvolvimento
 npm run dev
 
-# Executar suite de testes de regras de negócio
+# 4. Executar os testes automatizados
 npm test
 
-# Gerar build de produção
+# 5. Compilar build para produção
 npm run build
-
-# Pré-visualizar build de produção
-npm run preview
-
-# Sincronizar alterações da aplicação com o projeto Android nativo
-npm run android:sync
-
-# Compilar novo pacote APK Android nativo (assembleDebug)
-npm run android:build
-
-# Abrir projeto nativo no Android Studio
-npm run android:open
 ```
-
-### 📱 Pacote APK Nativo Pronto para Instalação
-O pacote APK gerado está disponível na raiz do projeto:
-- **Arquivo direto:** `LembraNiver-debug.apk` (ou em `android/app/build/outputs/apk/debug/app-debug.apk`)
-- **Instalação via ADB no celular ou emulador:**
-  ```bash
-  adb install LembraNiver-debug.apk
-  ```
 
 ---
 
-## 📁 Estrutura de Diretórios
+## 📱 Aplicativo Android (APK)
 
+O build compilado em formato APK está disponível na raiz do repositório:
+- [`LembraNiver-debug.apk`](LembraNiver-debug.apk)
+
+Para gerar um novo build nativo Android:
+```bash
+npm run android:sync
+npm run android:build
 ```
-src/
-├── components/
-│   ├── common/         # Header, Navigation, Avatar, ToastContainer
-│   ├── dashboard/      # DashboardView (Banner hoje, cards, feed 90d)
-│   ├── persons/        # PersonsView (Listagem, filtros, tamanhos)
-│   ├── gifts/          # GiftsView (Wishlist, compras, histórico de entregas)
-│   ├── calendar/       # CalendarView (Grade mensal interativa, badges)
-│   ├── reminders/      # RemindersView (Banco de templates e lembretes)
-│   └── modals/         # Modais de Mensagens, Formulários, Backup e Entrega
-├── context/
-│   └── AppContext.tsx  # Estado global, persistência e motor de notificações
-├── data/
-│   └── mockData.ts     # Dados brasileiros para testes imediatos
-├── services/
-│   └── backupService.ts# Exportação, importação e validação via Zod
-├── test/
-│   └── runTests.ts     # Suite de testes automatizados
-├── types/
-│   └── index.ts        # Modelos TypeScript do domínio
-└── utils/
-    ├── commemorativeDates.ts # Motor de datas brasileiras fixas e móveis
-    ├── dateUtils.ts          # Cálculos de aniversário e formatações BR
-    ├── giftUtils.ts          # Prevenção inteligente de repetição de presentes
-    └── messageGenerator.ts   # Templates dinâmicos e Deep Link WhatsApp
-```
+
+---
+
+## 👨‍💻 Desenvolvedor
+
+Criado com carinho por **Rafael Lannes**.
+
+- 🌐 **Página Pessoal / Portfólio:** [rafael-lannes.github.io](https://rafael-lannes.github.io/)
+- 🐙 **GitHub:** [@rafael-lannes](https://github.com/rafael-lannes)
+
+---
+
+<div align="center">
+  <sub>LembraNiver © 2026 • Feito para conectar pessoas com mais carinho e presença.</sub>
+</div>
