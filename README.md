@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="public/app-icon.png" alt="LembraNiver Logo" width="140" style="border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
+  <img src="public/app-icon.png" alt="LembraNiver Logo" width="130" />
 
   # LembraNiver
   ### *"Mais presença na vida de quem você ama."*
